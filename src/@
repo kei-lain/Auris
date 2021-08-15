@@ -1,0 +1,58 @@
+#Project: Auris
+#Author: Lainey "Lain" Tubbs
+
+
+import  requests, sys , os, platform
+from bs4 import BeautifulSoup
+from urllib.request import urlopen
+
+#parser = argparse.ArgumentParser(description="An opensource Aur Helper")
+#parser.add_argument('-p', help='Set the package that you are wanting to install')
+
+#name = sys.argv[1]
+
+
+#def gitgraber(tag):
+#    if isinstance(tag, str):
+#        return tag.endswith('git')
+
+
+
+#def get_links(tags_list):
+#    return [WEB_ROOT + tag.attrs['href'] for tag in tags_list]
+
+
+#URL= ('https://aur.archlinux.org/packages/?O=0&SeB=nd&K=')
+    
+
+
+#page = requests.get(URL)
+
+#soup = BeautifulSoup(page.content, "html.parser")
+
+#if __name__ == "__main__":
+#    packageSearch = soup.findaAll(name)
+#    with  soup.find(id="title") as results:
+#        print(results.prettify())
+#        job_elements = results.find_all("td", class_="odd" )
+#        print(job_elements.prettify())
+ 
+
+
+class initialSetup(self):
+    def __init__:
+        self.distroderiv = distroderiv
+        self.distro = distro
+
+
+
+    def initText(self):
+        distro = os.name()
+        distroderiv = platform.linux_distribution
+        print(distroderiv)
+        while os.path.isdir('/var/lib/pacman') == False:
+        x  os.mkdir('/var/lib/pacman')
+        
+
+
+
