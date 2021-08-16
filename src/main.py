@@ -7,6 +7,7 @@ import  sys , os, platform , argparse,subprocess
 import aur 
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
+from urllib.error import HTTPError
 
 
  
@@ -71,8 +72,12 @@ if __name__ == "__main__":
     print(args.p)
     while args.p == None:
         sys.exit('No package to query')
+    try:
     #Packages = aur.Package(category_id,description,first_submitted,id, last_modified, license, maintainer, name, num_votes, out_of date )
-    item = aur.search(f'{args.p}')
+        item = aur.search(f'{args.p}')
+
+    except aur.AURError:
+        sys.exit("The packages unable to query (Aka it don't exist)")
     #print(item)
     for package in item:
         count += 1
@@ -91,25 +96,38 @@ if __name__ == "__main__":
         print('')
         print('')
     #print(urls)
+    if len(packageList) == 0 :
+        sys.exit("Package(s) aren't found. please try again.")
     selection = int(input(f"Go ahead and select which package you would like to install [1 - {count}"))
     choice = selection - 1
-    print(urls[choice])
+    try:
+        print(urls[choice])
+    except IndexErorr:
+        print()
     baseURL = 'https://aur.archlinux.org/packages/'
+
     print(f"{baseURL}/{packageList[choice]}")
-    page = urlopen(f'{baseURL}{packageList[choice]}')
-    soup = BeautifulSoup (page, 'html.parser')
-    tag = soup.select("a.copy")[0]
-    result = tag.text
+    try:
+        page = urlopen(f'{baseURL}{packageList[choice]}')
+        soup = BeautifulSoup (page, 'html.parser')
+        tag = soup.select("a.copy")[0]
+        result = tag.text
     #print(soup.find_all("git"))
-    currentUser = os.getlogin()
-    print(result)
+        currentUser = os.getlogin()
+        print(result)
+    except HTTPError as he:
+        print(he)
     if os.path.isdir(f'/home/{currentUser}/Packages'):
         os.chdir(f'/home/{currentUser}/Packages')
     elif os.path.isdir(f'/home/{currentUser}/Packages') == False:
         os.mkdir(f'/home/{currentUser}/Packages')
         os.chdir(f'/home/{currentUser}/Packages')
     elif args.d != null:
-        os.chdir(f'{args.d}')
+        try:
+            os.chdir(f'{args.d}')
+        except OSError:
+            print(f"The given directory {args.d} doesn"'t exist!')
+            sys.exit('')
     else: 
         pass
 
