@@ -1,3 +1,5 @@
+#!/bin/env python
+
 #Project: Auris
 #Author: Lainey "Lain" Tubbs
 #About: Auris is a WIP AUR script that queries AUR packages
